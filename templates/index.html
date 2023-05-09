@@ -1,0 +1,29 @@
+{% extends 'outline.html' %}
+
+{% block title %}
+Books
+{% endblock %}
+
+{% block body %}
+    <h1>Books</h1>
+    <p>We should scroll to {{ scrollTo }}</p>
+    <form action="/cart" method="post">
+        <div class="books">
+            {% for book in books %}
+                <div class="book" id="{{ book['id'] }}">
+                    <h2>{{ book['title'] }}</h2>
+                    <h3>Book ID: {{ book['id'] }}</h3>
+                    <button type="submit" name="id" value="{{ book['id'] }}">Submit</button>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+
+    {% if scrollTo %}
+        <script>
+            document.getElementById('{{ scrollTo }}').scrollIntoView();
+            // or
+            document.location.hash = '#' + '{{ scrollTo }}';
+        </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+.items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+.item {
+    border: 2px dashed black;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+}

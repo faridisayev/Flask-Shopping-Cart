@@ -1,0 +1,21 @@
+{% extends 'outline.html' %}
+
+{% block title %}
+Cart
+{% endblock %}
+
+{% block body %}
+    <h1>Cart</h1>
+    <form action="/remove" method="post">
+        <div class="items">
+            {% for item in cart %}
+                <div class="item">
+                    <p>Title: {{ item['title'] }}</p>
+                    <p>ID: {{ item['id'] }}</p>
+                    <p>Quantity: {{ item['quantity'] }}</p>
+                    <button type="submit" name="id" value="{{ item['id'] }}">Remove from Cart</button>
+                </div>
+            {% endfor %}
+        </div>
+    </form>
+{% endblock %}

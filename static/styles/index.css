@@ -1,0 +1,23 @@
+h1 {
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+}
+
+.books {
+    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.book {
+    border: 3px solid black;
+    padding: 15px;
+    margin: 15px;
+}
+
+.book h3 {
+    opacity: 50%;
+}

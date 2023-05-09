@@ -1,0 +1,10 @@
+.navbar {
+    display: flex;
+    padding: 15px 0px;
+    font-size: larger;
+    font-weight: bolder;
+}
+
+.nav-link {
+    margin-right: 5px;
+}
