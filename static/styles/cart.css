@@ -1,12 +1,26 @@
+h1 {
+    text-align: center;
+}
+
 .items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
 }
 
 .item {
     border: 2px dashed black;
     padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
+    margin: 5%;
+    margin-left: 0%;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#decrease-quantity {
+    background-color: black;
+}
+
+#remove-item {
+    background-color: red;
 }
