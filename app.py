@@ -10,8 +10,12 @@ app.config['SESSION_TYPE'] = "filesystem"
 Session(app)
 
 @app.route("/")
-def index(scrollTo = None):
+def index(scrollTo = None, selectBooks = None):
+
     books = db.execute('SELECT * FROM books')
+
+    if selectBooks:
+        books = selectBooks
 
     if scrollTo:
         return render_template('index.html', stylesheet = url_for('static', filename='styles/index.css'), books = books, scrollTo = scrollTo)
@@ -46,3 +50,26 @@ def remove():
         if session["cart"][id]["quantity"] <= 0 or "remove-item" in request.form:
             del session["cart"][id]
     return redirect("/cart")
+
+@app.route("/search")
+def search():
+    q = request.args.get("q")
+
+    if "search" in request.args:
+        selectBooks = db.execute("SELECT * FROM books WHERE title LIKE ? ", "%" + q + "%")
+        return index(selectBooks=selectBooks)
+    else:
+
+        if q: 
+            books = db.execute("SELECT * FROM books WHERE title LIKE ? ", "%" + q + "%")
+        else:
+            books = []
+
+        return render_template('search.html', books = books)
+
+@app.route("/book/<int:id>")
+def book(id):
+    book = db.execute("SELECT * FROM books WHERE id = ?", id)
+    if not book:
+        return render_template("error.html", message="Book not found")
+    return render_template("book.html", book=book[0])

@@ -10,7 +10,7 @@ Books
         {% for book in books %}
             <form action="/cart" method="post">
                     <div class="book" id="{{ book['id'] }}">
-                        <h2>{{ book['title'] }}</h2>
+                        <h2><a href="{{ url_for('book', id=book['id']) }}">{{ book['title'] }}</a></h2>
                         <h3>Book ID: {{ book['id'] }}</h3>
                         <input type="hidden" name="id" value="{{ book['id'] }}">
                         <label for="quantity">Select quantity (1-10):</label>

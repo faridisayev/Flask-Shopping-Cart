@@ -11,7 +11,62 @@
     <nav class="navbar">
         <a href="/" class="nav-link">Books</a>
         <a href="/cart" class="nav-link">Cart</a>
+        <form action="/search" method="get">
+            <div class="search">
+                <input type="search" name="q" autofocus autocomplete="off">
+                <ul></ul>
+            </div>
+            <button type="submit" name="search">Search</button>
+        </form>
     </nav>
     {% block body %}{% endblock %}
+
+    <script>
+        let input = document.querySelector('.search > input');
+        let suggestions = document.querySelector('.search > ul');
+        let selectedIndex = -1;
+
+        input.addEventListener('input', async function() {
+            let response = await fetch('/search?q=' + input.value);
+            let titles = await response.text();
+            suggestions.innerHTML = titles;
+            selectedIndex = -1;
+            highlightSelection();
+        });
+
+        input.addEventListener('keydown', function(e) {
+            if (e.keyCode === 38) { // up arrow
+                e.preventDefault();
+                if (selectedIndex > 0) {
+                    selectedIndex--;
+                    highlightSelection();
+                }
+            } else if (e.keyCode === 40) { // down arrow
+                e.preventDefault();
+                if (selectedIndex < suggestions.children.length - 1) {
+                    selectedIndex++;
+                    highlightSelection();
+                }
+            } else if (e.keyCode === 13) { // enter key
+                e.preventDefault();
+                if (selectedIndex >= 0 && selectedIndex < suggestions.children.length) {
+                    let selectedTitle = suggestions.children[selectedIndex].textContent;
+                    input.value = selectedTitle;
+                    suggestions.innerHTML = '';
+                    selectedIndex = -1;
+                }
+                document.querySelector('button[name="search"]').click();
+            }
+        });
+
+        function highlightSelection() {
+            for (let i = 0; i < suggestions.children.length; i++) {
+                suggestions.children[i].classList.remove('highlight');
+            }
+            if (selectedIndex >= 0 && selectedIndex < suggestions.children.length) {
+                suggestions.children[selectedIndex].classList.add('highlight');
+            }
+        }
+    </script>
 </body>
 </html>
