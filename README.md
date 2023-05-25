@@ -1,3 +1,3 @@
-# Cart
+# Flask-Shopping-Cart
 
-This is a simple book store with a shopping Cart implementation.
+This is a simple book store made with Flask. It features a shopping Cart implementation.
